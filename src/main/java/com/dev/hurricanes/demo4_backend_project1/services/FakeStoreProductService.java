@@ -9,7 +9,7 @@ import java.util.List;
 public class FakeStoreProductService implements ProductService {
     @Override
     public Product getSingleProduct(Long productId) {
-        return null;
+        return null; //
     }
 
     @Override
