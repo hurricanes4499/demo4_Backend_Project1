@@ -1,13 +1,11 @@
 package com.dev.hurricanes.demo4_backend_project1.controllers;
 
+import com.dev.hurricanes.demo4_backend_project1.Dtos.CreateProductRequestDto;
 import com.dev.hurricanes.demo4_backend_project1.models.Product;
 import com.dev.hurricanes.demo4_backend_project1.services.FakeStoreProductService;
-import com.dev.hurricanes.demo4_backend_project1.services.OwnDatabaseProductService;
+//import com.dev.hurricanes.demo4_backend_project1.services.OwnDatabaseProductService;
 import com.dev.hurricanes.demo4_backend_project1.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -23,9 +21,9 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-//    private ProductService productService1 = new FakeStoreProductService();
+    //private ProductService productService1 = new FakeStoreProductService();
 
-    private ProductService productService2 = new OwnDatabaseProductService();
+    //private ProductService productService2 = new OwnDatabaseProductService();
     // POST / products
     // RequestBody
     // {
@@ -34,8 +32,14 @@ public class ProductController {
     //      price:
     // }
     @PostMapping("/products")
-    public void createProduct() {
-
+    public Product createProduct(@RequestBody CreateProductRequestDto requestCreateProductDto) {
+        return productService.createProduct(
+                requestCreateProductDto.getTitle(),
+                requestCreateProductDto.getDescription(),
+                requestCreateProductDto.getCategory(),
+                requestCreateProductDto.getPrice(),
+                requestCreateProductDto.getImage()
+        );
     }
 
     @GetMapping("/products/{id}")
